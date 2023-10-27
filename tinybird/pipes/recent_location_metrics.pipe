@@ -1,0 +1,22 @@
+TOKEN "frontend" READ
+
+NODE recent_location_metrics_0
+DESCRIPTION >
+    undefined
+
+SQL >
+
+    %
+        SELECT
+          timestamp,
+          {{columns(metrics, 'temp,windSpeed')}},
+        FROM
+          metrics
+        WHERE
+        {% if defined(location) %}
+          location = {{String(location)}} AND
+        {% end %}
+          timestamp > now() - INTERVAL 1 Day
+         ORDER BY timestamp
+
+

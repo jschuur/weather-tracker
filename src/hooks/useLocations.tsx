@@ -9,6 +9,7 @@ export const useLocations = () =>
   useQuery({
     queryKey: ['locations'],
     meta: { toastError: true },
+    placeholderData: { locations: [] },
     queryFn: () => fetchApi<{ locations: LocationList }>('/api/locations', LocationsDataSchema),
     staleTime: 60 * 60 * 1000,
   });

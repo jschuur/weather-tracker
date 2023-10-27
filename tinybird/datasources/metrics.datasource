@@ -1,0 +1,26 @@
+TOKEN "backend" APPEND
+
+DESCRIPTION >
+    Weather metrics collected from the OpenWeatherMap API
+
+SCHEMA >
+    `timestamp` DateTime `json:$.timestamp`,
+    `location` String `json:$.location`,
+    `description` String `json:$.description`,
+    `main` String `json:$.main`,
+    `conditionId` Int32 `json:$.conditionId`,
+    `iconRaw` String `json:$.iconRaw`,
+    `temp` Float32 `json:$.temp`,
+    `feelsLike` Float32 `json:$.feelsLike`,
+    `humidity` Float32 `json:$.humidity`,
+    `pressure` Float32 `json:$.pressure`,
+    `windDeg` Float32 `json:$.windDeg`,
+    `windSpeed` Float32 `json:$.windSpeed`,
+    `rain` Float32 `json:$.rain`,
+    `clouds` Float32 `json:$.clouds`,
+    `snow` Float32 `json:$.snow`,
+    `visibility` Float32 `json:$.visibility`
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYear(timestamp)"
+ENGINE_SORTING_KEY "timestamp, location"

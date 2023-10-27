@@ -4,18 +4,22 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { Callout, Card, LineChart, Title } from '@tremor/react';
 
 import { useLocationData } from '@/hooks/useLocationData';
+import { useLocations } from '@/hooks/useLocations';
 import { getErrorMessage } from '@/lib/error';
-import { Metrics } from '@/lib/types';
+import { TinyBirdSnapshot } from '@/lib/types';
 
-function dataFormat(metrics: Metrics) {
+function dataFormat(metrics: Omit<TinyBirdSnapshot, 'location'>[]) {
   return metrics.map((metric) => ({
     ...metric,
-    timestamp: new Date(metric.timestamp).toLocaleString(),
+    timestamp: metric.timestamp.toLocaleString(),
   }));
 }
 
 export function LocationChart() {
-  const { data, isError, isFetching, error } = useLocationData();
+  const { data: metrics, location, isError, isFetching, error } = useLocationData();
+  const { data: { locations } = { locations: [] } } = useLocations();
+
+  const locationName = locations.find((loc) => loc.slug === location)?.name;
 
   if (isError)
     return (
@@ -31,13 +35,13 @@ export function LocationChart() {
 
   return (
     <Card>
-      <Title>{data?.name ? `Recent Temperature for ${data.name}` : null}</Title>
+      <Title>{locationName ? `Recent Temperature for ${locationName}` : null}</Title>
       <LineChart
         className='mt-6'
-        data={data?.metrics ? dataFormat(data.metrics) : []}
+        data={metrics ? dataFormat(metrics) : []}
         index='timestamp'
         noDataText={isFetching ? 'Loading...' : 'No data available'}
-        categories={['temperature']}
+        categories={['temp']}
         colors={['emerald']}
         yAxisWidth={40}
         showAnimation={true}

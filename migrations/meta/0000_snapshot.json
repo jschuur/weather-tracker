@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "eb7b0821-3e8a-4d34-b54f-8a44ea05ccb9",
+  "id": "3698c195-5108-4dea-bce5-8d4e9c65c910",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "locations": {
@@ -28,15 +28,30 @@
           "notNull": true,
           "autoincrement": false
         },
-        "metrics": {
-          "name": "metrics",
-          "type": "blob",
+        "lat": {
+          "name": "lat",
+          "type": "real",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
-        "enabled": {
-          "name": "enabled",
+        "lon": {
+          "name": "lon",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "metrics": {
+          "name": "metrics",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'temp'"
+        },
+        "active": {
+          "name": "active",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -60,7 +75,15 @@
           "default": "current_timestamp"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "locations_slug_unique": {
+          "name": "locations_slug_unique",
+          "columns": [
+            "slug"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

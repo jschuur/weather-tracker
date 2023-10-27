@@ -1,20 +1,25 @@
 import 'dotenv/config';
 
-const locationSeedData = [
+import { LocationInsert } from '@/lib/types';
+
+const locationSeedData: LocationInsert[] = [
   {
     name: 'London',
     slug: 'london',
-    metrics: ['temp'],
+    lat: 51.5074,
+    lon: -0.1278,
   },
   {
     name: 'Paris',
     slug: 'paris',
-    metrics: ['temp'],
+    lat: 48.8566,
+    lon: 2.3522,
   },
   {
     name: 'Beijing',
     slug: 'beijing',
-    metrics: ['temp'],
+    lat: 39.9042,
+    lon: 116.4074,
   },
 ];
 

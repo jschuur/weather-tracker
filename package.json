@@ -12,9 +12,14 @@
     "schema:migrate:prod": "dotenv -e .env.production -- tsx util/dbMigrate.ts",
     "seed": "tsx util/seed.ts",
     "seed:prod": "dotenv -e .env.production -- tsx util/seed.ts",
-    "update:locations:dev": "tsx util/updateLocations.ts"
+    "update:metrics": "tsx util/updateMetrics.ts",
+    "update:metrics:prod": "dotenv -e .env.production -- tsx util/updateMetrics.ts",
+    "tb:ws:dev": "tb workspace use weathertracker_dev",
+    "tb:ws:prod": "tb workspace use weathertracker_prod",
+    "tb:push": "tb push --folder tinybird --force"
   },
   "dependencies": {
+    "@chronark/zod-bird": "^0.2.2",
     "@heroicons/react": "^2.0.18",
     "@libsql/client": "^0.3.6",
     "@tanstack/react-query": "^5.0.5",
@@ -29,6 +34,7 @@
     "next": "13.5.6",
     "next-usequerystate": "^1.8.4",
     "openweather-api-node": "^3.1.2",
+    "pluralize": "^8.0.0",
     "pretty-ms": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -39,6 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.8",
+    "@types/pluralize": "^0.0.32",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
     "autoprefixer": "^10.4.16",
